@@ -5,6 +5,32 @@ const context = canvas.getContext("2d");
 const unit = 10;
 let dir = 'right';
 
+//create score bar
+
+let score= 0;
+
+// load images
+
+const foodImg = new Image();
+foodImg.src = "img/food.png";
+
+// load audio files
+
+let dead = new Audio();
+let eat = new Audio();
+let up = new Audio();
+let right = new Audio();
+let left = new Audio();
+let down = new Audio();
+
+dead.src = "assets/audio/dead.mp3";
+eat.src = "assets/audio/eat.mp3";
+up.src = "assets/audio/up.mp3";
+right.src = "assets/audio/right.mp3";
+left.src = "assets/audio/left.mp3";
+down.src = "assets/audio/down.mp3";
+
+
 // create snake array
 
 const snake = [];
@@ -19,8 +45,8 @@ const defaultLength = 4;
 
 for (i = 0; i < defaultLength; i++) {
     snake.push({
-        x: i,
-        y: 0
+        x: i+5,
+        y: 5
     });
 }
 
@@ -28,14 +54,22 @@ for (i = 0; i < defaultLength; i++) {
 document.addEventListener("keydown", direction);
 
 function direction(e) {
-    if (e.keyCode == 37 && dir != 'right')
+    if (e.keyCode == 37 && dir != 'right'){
         dir = 'left';
-    else if (e.keyCode == 38 && dir != 'down')
+        left.play();
+    }
+    else if (e.keyCode == 38 && dir != 'down'){
         dir = 'up';
-    else if (e.keyCode == 39 && dir != 'left')
+        up.play();
+    }
+    else if (e.keyCode == 39 && dir != 'left'){
         dir = 'right';
-    else if (e.keyCode == 40 && dir != 'up')
+        right.play();
+    }
+    else if (e.keyCode == 40 && dir != 'up'){
         dir = 'down';
+        down.play();
+    }
 }
 //create food
 let food = {
@@ -49,6 +83,17 @@ const drawFood = (x, y) => {
     context.strokeStyle = 'Black';
     context.strokeRect(x * unit, y * unit, unit, unit);
 }
+
+// cheack collision function
+function collision(head,array){
+    for(let i = 0; i < array.length; i++){
+        if(head.x == array[i].x && head.y == array[i].y){
+            return true;
+        }
+    }
+    return false;
+}
+
 //create snake
 const draw = () => {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -64,11 +109,6 @@ const draw = () => {
     let snakeX = snake[0].x; // snake old heade position x
     let snakeY = snake[0].y; // snake old heade position y
 
-    if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width / unit || snakeY >= canvas.height / unit) {
-        // alert("GAME OVER")
-        canvas.innerHTML = "GAME OVER"
-    }
-
     if (dir == 'right') {
         snakeX++
     } else if (dir == 'left') {
@@ -80,6 +120,8 @@ const draw = () => {
     }
 
     if (snakeX == food.x && snakeY == food.y) {
+        score++;
+        eat.play();
         food = {
             x: Math.round(Math.random() * (canvas.width / unit - 1) + 1),
             y: Math.round(Math.random() * (canvas.height / unit - 1) + 1)
@@ -98,5 +140,24 @@ const draw = () => {
         }
         snake.unshift(newHead);
     }
+
+    let newHead = { // snake new head position
+        x: snakeX,
+        y: snakeY
+    }
+
+    if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width / unit || snakeY >= canvas.height / unit) {
+        // alert("GAME OVER")
+        // canvas.innerHTML = "GAME OVER"
+        dead.play();
+        clearInterval(game);
+        context.font = "30px Arial";
+        context.fillStyle = "red";
+        context.fillText("GAME OVER", 15*unit, 20*unit);
+    }
+
+    context.font = "20px Arial";
+    context.fillStyle = "yellow";
+    context.fillText("SCORE : "+score, 10, 20);
 }
-setInterval(draw, 200);
+let game = setInterval(draw, 200);

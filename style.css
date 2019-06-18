@@ -6,6 +6,11 @@
     margin: 0 auto;
     background: #000000;
 }
+
+.ground-wrapper {
+    width: 600px;
+    height: 600px;
+}
 /* mobile view*/
 /* @media (max-width: 767px){
     #game-ground {
