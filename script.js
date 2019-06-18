@@ -1,5 +1,9 @@
 const canvas = document.getElementById('game-ground');
 const context = canvas.getContext("2d");
+const rtbtn = document.getElementById('right');
+const ltbtn = document.getElementById('left');
+const upbtn = document.getElementById('up');
+const dwnbtn = document.getElementById('down');
 
 // create snake unit
 const unit = 10;
@@ -49,6 +53,27 @@ for (i = 0; i < defaultLength; i++) {
         y: 5
     });
 }
+
+// arrow-btn control
+rtbtn.addEventListener('click', function(){
+    dir = 'right';
+    right.play();
+})
+
+ltbtn.addEventListener('click', function(){
+    dir = 'left';
+    left.play();
+})
+
+upbtn.addEventListener('click', function(){
+    dir = 'up';
+    up.play();
+})
+
+dwnbtn.addEventListener('click', function(){
+    dir = 'down';
+    down.play();
+})
 
 // control snake direction
 document.addEventListener("keydown", direction);
@@ -153,7 +178,7 @@ const draw = () => {
         clearInterval(game);
         context.font = "30px Arial";
         context.fillStyle = "red";
-        context.fillText("GAME OVER", 15*unit, 20*unit);
+        context.fillText("GAME OVER", 6*unit, 15*unit);
     }
 
     context.font = "20px Arial";
