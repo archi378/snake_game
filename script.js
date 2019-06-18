@@ -99,8 +99,8 @@ function direction(e) {
 }
 //create food
 let food = {
-    x: Math.round(Math.random() * (canvas.width / unit - 1) + 1),
-    y: Math.round(Math.random() * (canvas.height / unit - 1) + 1)
+    x: Math.round(Math.random() * ((canvas.width / unit)- 1) + 1),
+    y: Math.round(Math.random() * ((canvas.height / unit) - 1) + 1)
 }
 const drawFood = (x, y) => {
     context.fillStyle = 'red';
@@ -149,8 +149,8 @@ const draw = () => {
         score++;
         eat.play();
         food = {
-            x: Math.round(Math.random() * (canvas.width / unit - 1) + 1),
-            y: Math.round(Math.random() * (canvas.height / unit - 1) + 1)
+            x: Math.round(Math.random() * ((canvas.width / unit)- 1) + 1),
+            y: Math.round(Math.random() * ((canvas.height / unit) - 1) + 1)
         }
         let newHead = { // snake new head position
             x: snakeX,
