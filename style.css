@@ -1,4 +1,8 @@
-
+body {
+    background-image: url('assets/img/background.png');
+    background-size: cover;
+    align-content: center;
+}
 #game-ground {
     width: 300px;
     height: 300px;
@@ -29,12 +33,35 @@
     outline: none;
     border: none;
     margin: 5px;
+    box-shadow: 3px 3px 3px 3px #323238;
 }
 
-/* mobile view*/
-/* @media (max-width: 767px){
-    #game-ground {
-        width: 300px;
-        height: 400px;
+.arrow-keys button:active {
+    background-color: #9090e2;
+}
+
+.arrow-keys {
+    display: none;
+}
+
+#playbtn {
+    display: none; 
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    outline: none;
+    border: none;
+    margin: 0 auto;
+    background-color: blue;
+    margin-left: calc(50% - 50px);
+    margin-top: -100px;
+    color: white;
+    font-size: 18px;
+}
+
+/*mobile view*/
+ @media (max-width: 1024px){
+    .arrow-keys {
+        display: block;
     }
-} */
+}

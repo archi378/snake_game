@@ -4,6 +4,7 @@ const rtbtn = document.getElementById('right');
 const ltbtn = document.getElementById('left');
 const upbtn = document.getElementById('up');
 const dwnbtn = document.getElementById('down');
+const playbtn = document.getElementById('playbtn');
 
 // create snake unit
 const unit = 10;
@@ -179,6 +180,8 @@ const draw = () => {
         context.font = "30px Arial";
         context.fillStyle = "red";
         context.fillText("GAME OVER", 6*unit, 15*unit);
+        playbtn.style.display='block';
+        
     }
 
     context.font = "20px Arial";
